@@ -1,0 +1,22 @@
+{
+    "name": "krzysieksiemv/blog",
+    "description": "System CMS do tworzenia własnego bloga",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Krzysieksiemv\\Blog\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Krzysztof \"KrzysiekSiemv\" Smaga",
+            "email": "krzysiek-smaga@outlook.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "twbs/bootstrap": "^5.2",
+        "phpmailer/phpmailer": "^6.7.1",
+      "ext-mysqli": "*"
+    }
+}

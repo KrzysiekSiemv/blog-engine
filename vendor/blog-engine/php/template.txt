@@ -1,0 +1,77 @@
+<?php
+    /*
+     *      KONFIGURACJA BLOGA
+     */
+
+    // Czy blog przeszedł już pierwsze uruchomienie
+    const BLOG_RAN = true;
+
+    // Tytuł bloga
+    const BLOG_TITLE = "{BLOG_TITLE}";
+
+    // Opis bloga
+    const BLOG_DESC = "{BLOG_DESC}";
+
+    // Autor bloga/Nazwa wyświetlana dla głównego administratora bloga
+    const BLOG_AUTHOR = "{BLOG_AUTHOR}";
+
+    // Tagi bloga
+    const BLOG_TAGS = "{BLOG_TAGS}";
+
+    // Domena bloga
+    const BLOG_DOMAIN = "{BLOG_DOMAIN}";
+
+    // Ikona bloga (format .PNG)
+    const BLOG_ICON = "{BLOG_ICON}";
+
+    // Nazwa pliku strony głównej
+    const BLOG_INDEX = "{BLOG_INDEX}";
+
+    /*
+     *      KONFIGURACJA BAZY DANYCH
+     */
+
+    // Adres IP do serwera bazy danych MySQL/MariaDB
+    const DB_HOST = "{DB_HOST}";
+
+    // Nazwa użytkownika do serwera bazy danych MySQL/MariaDB
+    const DB_USER = "{DB_USER}";
+
+    // Hasło do użytkownika serwera bazy danych MySQL/MariaDB
+    const DB_PASS = "{DB_PASS}";
+
+    // Baza danych dla bloga
+    const DB_NAME = "{DB_NAME}";
+
+    /*
+     *      KONFIGURACJA KONTA ADMINISTRATORA
+     */
+
+    // Nazwa użytkownika dla głównego administratora bloga
+    const ADMIN_USER = "{ADMIN_USER}";
+
+    // Adres mailowy kontaktowy do głównego administratora bloga
+    const ADMIN_EMAIL = "{ADMIN_EMAIL}";
+
+    // Hasło dla głównego administratora bloga
+    const ADMIN_PASS = "{ADMIN_PASS}";
+
+
+    /*
+     *      KONFIGURACJA POCZTY, DLA NEWSLETTERÓW
+     */
+
+    // Adres e-mail, z którego będą wysyłane wiadomości mailowe
+    const MAIL_NAME = "{MAIL_NAME}";
+
+    // Hasło do poczty
+    const MAIL_PASS = "{MAIL_PASS}";
+
+    // Serwer wychodzący poczty e-mail
+    const MAIL_SRV = "{MAIL_SRV}";
+
+    // Port do serwera wychodzącego poczty e-mail
+    const MAIL_PORT = "{MAIL_PORT}";
+
+    // Wymaga SSL'a
+    const MAIL_SSL = {MAIL_SSL};

@@ -1,0 +1,88 @@
+{
+    "table_name": [
+        {
+            "column_name": "NAZWA TABELI",                          // WYMAGANE!
+            "datatype": "TYP KOLUMNY",                              // WYMAGANE!
+            "length": DŁUGOŚĆ/WIELKOŚĆ WARTOŚCI (0-255),            // WYMAGANE DLA DANYCH TYPÓW
+            "enum_data": [ZBIÓR DANYCH (np. "Jabłko", "Kiwi")],     // WYMAGANE DLA ENUM/SET
+            "primary_key": true/false,                              // Czy jest to klucz podstawowy
+            "unique": true/false,                                   // Czy musi być unikalne
+            "foreign_key": {
+                "references": "TABELA",
+                "column": "KOLUMNA Z KTÓREJ POBIERA INDEKS"
+            },
+            "auto_increment": true/false,                           // Czy ma dawać wartości liczbowe rosnące
+            "not_null": true/false,                                 // Czy kolumna nie może być pusta
+            "default": {
+                "value": "DOMYŚLNIE"                                // Wartość domyślna dla kolumny
+                "is_string": true/false                             // WYMAGANE GDY DODAWANE DEFAULT! Czy wartość domyślna jest Stringiem czy czymś innym
+            }
+        }
+    ]
+
+    // Przykład na dwóch tabelach z relacją 1..n
+    "users": [
+            {
+                "column_name": "id_user",
+                "datatype": "INT",
+                "length": 10,
+                "primary_key": true,
+                "auto_increment": true,
+                "not_null": true
+            },
+            {
+                "column_name": "name",
+                "datatype": "VARCHAR",
+                "length": 24,
+                "not_null": true
+            },
+            {
+                "column_name": "lastName",
+                "datatype": "VARCHAR",
+                "length": 48
+            },
+            {
+                "column_name": "description",
+                "datatype": "TEXT"
+            },
+            {
+                "column_name": "sex",
+                "datatype": "ENUM",
+                "enum_data": ['male', 'female'];
+            }
+    ],
+    "posts": [
+        {
+            "column_name": "id_post",
+            "datatype": "INT",
+            "length": 10,
+            "primary_key": true,
+            "auto_increment": true,
+            "not_null": true
+        },
+        {
+            "column_name": "id_user",
+            "datatype": "INT",
+            "length": 10,
+            "foreign_key": {
+                "references": "users",
+                "column": "id_user"
+            },
+            "not_null": true
+        },
+        {
+            "column_name": "added_at",
+            "datatype": "DATETIME",
+            "not_null": true,
+            "default": {
+                "value": "NOW()",
+                "is_string": false
+            }
+        },
+        {
+            "column_name": "content",
+            "datatype": "TEXT",
+            "not_null": true
+        }
+    ]
+}

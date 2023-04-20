@@ -1,0 +1,39 @@
+{
+  "posts": [
+    {
+      "id_post": "NULL",
+      "id_user": 1,
+      "name": "hello-world",
+      "title": "Witaj świecie!",
+      "content": "Jestem pierwszym postem na nowo postawionym blogu! Ciesze się, że mogę tutaj być!",
+      "status": "public",
+      "comments": "open",
+      "views": 0,
+      "added_at": "NOW()",
+      "updated_at": "NULL"
+    },
+    {
+      "id_post": "NULL",
+      "id_user": 1,
+      "name": "lipsum",
+      "title": "Lorem Ipsum!",
+      "content": "Drugi post, zawierający komentarze",
+      "status": "public",
+      "comments": "open",
+      "views": 0,
+      "added_at": "NOW()",
+      "updated_at": "NULL"
+    }
+  ],
+  "comments": [
+    {
+      "id_comment": "NULL",
+      "id_post": 2,
+      "id_author": 1,
+      "content": "Jestem komentarzem! :D",
+      "author": "Administrator",
+      "author_ip": "127.0.0.1",
+      "added_at": "NOW()"
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "users": [
+    {
+      "column_name": "id_user",
+      "datatype": "INT",
+      "length": 11,
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "avatar_link",
+      "datatype": "VARCHAR",
+      "length": 96
+    },
+    {
+      "column_name": "fname",
+      "datatype": "VARCHAR",
+      "length": 28,
+      "not_null": true
+    },
+    {
+      "column_name": "lname",
+      "datatype": "VARCHAR",
+      "length": 40
+    },
+    {
+      "column_name": "login",
+      "datatype": "VARCHAR",
+      "length": 32,
+      "not_null": true
+    },
+    {
+      "column_name": "display_name",
+      "datatype": "VARCHAR",
+      "length": 32,
+      "not_null": true
+    },
+    {
+      "column_name": "password",
+      "datatype": "TEXT",
+      "not_null": true
+    },
+    {
+      "column_name": "email",
+      "datatype": "VARCHAR",
+      "length": 96,
+      "not_null": true
+    },
+    {
+      "column_name": "role",
+      "datatype": "ENUM",
+      "enum_data": ["administrator", "moderator", "user"],
+      "not_null": true,
+      "default": {
+        "value": "user",
+        "is_string": true
+      }
+    },
+    {
+      "column_name": "login_token",
+      "datatype": "TEXT",
+      "unique": true,
+      "not_null": true,
+      "default": {
+        "value": "UUID()",
+        "is_string": false
+      }
+    },
+    {
+      "column_name": "created_at",
+      "datatype": "DATETIME",
+      "length": 0,
+      "not_null": true,
+      "default": {
+        "value": "NOW()",
+        "is_string": false
+      }
+    },
+    {
+      "column_name": "modified_at",
+      "datatype": "DATETIME"
+    }
+  ],
+  "posts": [
+    {
+      "column_name": "id_post",
+      "datatype": "INT",
+      "length": 11,
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "id_user",
+      "datatype": "INT",
+      "length": 11,
+      "foreign_key": {
+        "references": "users",
+        "column": "id_user"
+      },
+      "not_null": true
+    },
+    {
+      "column_name": "name",
+      "datatype": "VARCHAR",
+      "length": 60,
+      "not_null": true
+    },
+    {
+      "column_name": "title",
+      "datatype": "VARCHAR",
+      "length": 60,
+      "not_null": true
+    },
+    {
+      "column_name": "content",
+      "datatype": "LONGTEXT",
+      "not_null": true
+    },
+    {
+      "column_name": "status",
+      "datatype": "ENUM",
+      "enum_data": ["public", "draft"],
+      "not_null": true,
+      "default": {
+        "value": "draft",
+        "is_string": true
+      }
+    },
+    {
+      "column_name": "comments",
+      "datatype": "ENUM",
+      "enum_data": ["open", "registered", "closed"],
+      "not_null": true,
+      "default": {
+        "value": "open",
+        "is_string": true
+      }
+    },
+    {
+      "column_name": "views",
+      "datatype": "INT",
+      "length": 11,
+      "not_null": true,
+      "default": {
+        "value": 0,
+        "is_string": false
+      }
+    },
+    {
+      "column_name": "added_at",
+      "datatype": "DATETIME",
+      "not_null": true,
+      "default": {
+        "value": "NOW()",
+        "is_string": false
+      }
+    },
+    {
+      "column_name": "updated_at",
+      "datatype": "DATETIME"
+    }
+  ],
+  "comments": [
+    {
+      "column_name": "id_comment",
+      "datatype": "INT",
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "id_post",
+      "datatype": "INT",
+      "foreign_key": {
+        "references": "posts",
+        "column": "id_post"
+      },
+      "not_null": true
+    },
+    {
+      "column_name": "id_author",
+      "datatype": "INT",
+      "foreign_key": {
+        "references": "users",
+        "column": "id_user"
+      }
+    },
+    {
+      "column_name": "author",
+      "datatype": "VARCHAR",
+      "length": 32
+    },
+    {
+      "column_name": "content",
+      "datatype": "TEXT",
+      "not_null": true
+    },
+    {
+      "column_name": "author_ip",
+      "datatype": "VARCHAR",
+      "length": 15,
+      "not_null": true
+    },
+    {
+      "column_name": "added_at",
+      "datatype": "DATETIME",
+      "not_null": true,
+      "default": {
+        "value": "NOW()",
+        "is_string": false
+      }
+    }
+  ],
+  "tags": [
+    {
+      "column_name": "id_tag",
+      "datatype": "INT",
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "show_name",
+      "datatype": "VARCHAR",
+      "length": 32,
+      "not_null": true
+    },
+    {
+      "column_name": "slug",
+      "datatype": "VARCHAR",
+      "length": 32,
+      "not_null": true
+    }
+  ],
+  "options": [
+    {
+      "column_name": "id_option",
+      "datatype": "INT",
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "name",
+      "datatype": "VARCHAR",
+      "length": 48,
+      "not_null": true
+    },
+    {
+      "column_name": "value",
+      "datatype": "TEXT",
+      "not_null": true
+    },
+    {
+      "column_name": "autoload",
+      "datatype": "TINYINT",
+      "length": 1,
+      "not_null": true,
+      "default": {
+        "value": 1,
+        "is_string": false
+      }
+    }
+  ],
+  "meta_users": [
+    {
+      "column_name": "id_umeta",
+      "datatype": "INT",
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "id_user",
+      "datatype": "INT",
+      "foreign_key": {
+        "references": "users",
+        "column": "id_user"
+      },
+      "not_null": true
+    },
+    {
+      "column_name": "name",
+      "datatype": "VARCHAR",
+      "length": 48,
+      "not_null": true
+    },
+    {
+      "column_name": "value",
+      "datatype": "TEXT",
+      "not_null": true
+    }
+  ],
+  "meta_posts": [
+    {
+      "column_name": "id_pmeta",
+      "datatype": "INT",
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "id_post",
+      "datatype": "INT",
+      "foreign_key": {
+        "references": "posts",
+        "column": "id_post"
+      },
+      "not_null": true
+    },
+    {
+      "column_name": "name",
+      "datatype": "VARCHAR",
+      "length": 48,
+      "not_null": true
+    },
+    {
+      "column_name": "value",
+      "datatype": "TEXT",
+      "not_null": true
+    }
+  ],
+  "meta_comments": [
+    {
+      "column_name": "id_cmeta",
+      "datatype": "INT",
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "id_comment",
+      "datatype": "INT",
+      "foreign_key": {
+        "references": "comments",
+        "column": "id_comment"
+      },
+      "not_null": true
+    },
+    {
+      "column_name": "name",
+      "datatype": "VARCHAR",
+      "length": 48,
+      "not_null": true
+    },
+    {
+      "column_name": "value",
+      "datatype": "TEXT",
+      "not_null": true
+    }
+  ],
+  "meta_tags": [
+    {
+      "column_name": "id_tmeta",
+      "datatype": "INT",
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "id_tag",
+      "datatype": "INT",
+      "foreign_key": {
+        "references": "tags",
+        "column": "id_tag"
+      },
+      "not_null": true
+    },
+    {
+      "column_name": "name",
+      "datatype": "VARCHAR",
+      "length": 48,
+      "not_null": true
+    },
+    {
+      "column_name": "value",
+      "datatype": "TEXT",
+      "not_null": true
+    }
+  ],
+  "tag_to_post": [
+    {
+      "column_name": "id_tag",
+      "datatype": "INT",
+      "foreign_key": {
+        "references": "tags",
+        "column": "id_tag"
+      },
+      "not_null": true
+    },
+    {
+      "column_name": "id_post",
+      "datatype": "INT",
+      "foreign_key": {
+        "references": "posts",
+        "column": "id_post"
+      },
+      "not_null": true
+    }
+  ],
+  "statistics": [
+    {
+      "column_name": "count_date",
+      "datatype": "DATE",
+      "not_null": true,
+      "default": {
+        "value": "NOW()",
+        "is_string": false
+      }
+    },
+    {
+      "column_name": "views",
+      "datatype": "INT",
+      "not_null": false,
+      "default": {
+        "value": 0,
+        "is_string": false
+      }
+    }
+  ]
+}

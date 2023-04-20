@@ -1,0 +1,38 @@
+@import url("../twbs/bootstrap/dist/css/bootstrap.min.css");
+
+:root {
+    --background: rgb(251, 251, 251);
+    --border-radius: 16px;
+}
+
+body {
+    background-color: var(--background);
+    min-height: 100vh;
+}
+
+body.first {
+    padding: 120px 24px;
+}
+
+body.login {
+}
+
+.fr-page {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: var(--border-radius);
+    padding: 32px;
+}
+
+.login-page {
+    width: 480px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: var(--border-radius);
+    padding: 32px;
+    border: 1px solid lightgray;
+    background-color: white;
+}
