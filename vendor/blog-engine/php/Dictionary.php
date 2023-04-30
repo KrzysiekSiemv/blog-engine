@@ -1,13 +1,14 @@
 <?php
 namespace BlogEngine {
+    require "_config.php";
     class Dictionary {
         public $page_tags = [
             "{POSTS}" => "",
             "{LINKS}" => "",
-            "{TAGS}" => "",
-            "{TITLE}" => "Tytuł",
-            "{AUTHOR}" => "lorem",
-            "{DESCRIPTION}" => "",
+            "{KEYWORDS}" => BLOG_TAGS,
+            "{TITLE}" => BLOG_TITLE,
+            "{AUTHOR}" => BLOG_AUTHOR,
+            "{DESCRIPTION}" => BLOG_DESC,
             "{JS}" => "",
             "{CSS}" => ""
         ];
