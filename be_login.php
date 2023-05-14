@@ -16,8 +16,7 @@
             header("location: be_panel.php");
         else
             header("location: index.php");
-    } else
-        header("location: index.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pl">

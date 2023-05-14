@@ -12,7 +12,7 @@
             <p>Jestem Twoim przyszłym blogiem! :D</p>
             <p>Ale zanim do tego dojdzie, skonfiguruj mnie. Przeprowadzę Cię przez proces konfiguracji mnie, dzięki któremu będę żył! Nie potrzeba poświęcać mi dużo czasu. Wystarczy dosłownie maks 5 minut.</p>
             <hr>
-            <form method="POST" action="index.php">
+            <form method="POST" action="index.php" enctype="multipart/form-data">
                 <label class="form-label" for="BLOG_AUTHOR">Jak się nazywasz mój twórco?</label>
                 <input class="form-control mb-3" type="text" name="BLOG_AUTHOR" placeholder="Jan Kowalski" required/>
                 <div id="config-blog">
@@ -27,6 +27,8 @@
                     <input class="form-control mb-3" type="text" name="BLOG_TAGS" placeholder="kwiaty, rośliny, drzewa" required/>
                     <label class="form-label" for="BLOG_DOMAIN">Domena bloga:</label>
                     <input class="form-control mb-3" type="text" name="BLOG_DOMAIN" placeholder="https://kwiatowyblog.pl" />
+                    <label class="form-label" for="BLOG_ICON">Ikona bloga:</label>
+                    <input class="form-control mb-3" type="file" name="BLOG_ICON" accept="image/png" />
                 </div>
                 <div id="config-db">
                     <hr>
@@ -48,6 +50,21 @@
                     <input class="form-control mb-3" type="text" name="DB_NAME" placeholder="db_kwiatowyblog" required/>
                     <button class="btn btn-primary mb-3" type="button" id="testConn">Testuj połączenie</button>
                     <p id="connStatus"></p>
+                </div>
+                <div id="config-dev">
+                    <hr>
+                    <h3>Konfiguracja narzędziowego</h3>
+                    <p>Jeżeli chcesz korzystać z korzyści, jakie dają wbudowane narzędzia tego silnika, możesz ustawić pod siebie to, co chcesz. </p>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label" for="PUB_PORT">Nazwa użytkownika:</label>
+                            <input class="form-control mb-3" type="number" name="PUB_PORT" min="1" max="65535" placeholder="8080" value="8080" required>
+                        </div>
+                        <div class="col">
+                            <label class="form-label" for="DEV_PORT">Hasło:</label>
+                            <input class="form-control mb-3" type="number" name="DEV_PORT" min="1" max="65535" placeholder="8081" value="8081" required />
+                        </div>
+                    </div>
                 </div>
                 <div id="config-admin">
                     <hr>

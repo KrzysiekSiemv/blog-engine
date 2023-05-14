@@ -1,4 +1,7 @@
-import * as bootstrap from "../twbs/bootstrap/dist/js/bootstrap.min.js";
+(async() => {
+    const bootstrap = await import("../twbs/bootstrap/dist/js/bootstrap.min.js");
+    
+});
 
 if(document.getElementById("testConn"))
     document.getElementById("testConn").addEventListener("click", () => testConnection());
@@ -16,4 +19,22 @@ function testConnection(){
     };
     xmlhttp.open("GET", "_checkdbconn.php?s=" + server + "&u=" + user + "&p=" + pass + "&d=" + name, true);
     xmlhttp.send();
+}
+
+function insertAtCursor(field, text, mark) {
+    let sel = window.getSelection().getRangeAt(0);
+    if(sel != null){
+        let startPos = sel.startOffset;
+        let endPos = sel.endOffset;
+
+        if(mark === true){
+            let start_tag = text.substring(0, (text.length % 2 === 0 ? Math.ceil(text.length / 2) : Math.ceil(text.length / 2) - 1));
+            let end_tag = text.substring((text.length % 2 === 0 ? Math.ceil(text.length / 2) : Math.ceil(text.length / 2) - 1), text.length);
+
+            field.innerHTML = field.innerHTML.substring(0, startPos) + start_tag + field.innerHTML.substring(startPos, endPos) + end_tag + field.innerHTML.substring(endPos, field.innerHTML.length);
+        } else {
+            field.innerHTML = field.innerHTML.substring(0, startPos) + text + field.innerHTML.substring(startPos, endPos) + "<br>" + field.innerHTML.substring(endPos, field.innerHTML.length);
+        }
+    } else
+        field.innerHTML += text;
 }

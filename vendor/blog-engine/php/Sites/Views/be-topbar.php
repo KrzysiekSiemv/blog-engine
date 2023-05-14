@@ -15,7 +15,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="#">Wejdź do panelu</a></li>
+                <li class="nav-item"><a class="nav-link" href="be_panel.php">Wejdź do panelu</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Dodaj nowy wpis</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Moderuj komentarze</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Zobacz statystyki</a></li>

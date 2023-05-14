@@ -24,9 +24,6 @@
     // Ikona bloga (format .PNG)
     const BLOG_ICON = "{BLOG_ICON}";
 
-    // Nazwa pliku strony głównej
-    const BLOG_INDEX = "{BLOG_INDEX}";
-
     /*
      *      KONFIGURACJA BAZY DANYCH
      */
@@ -42,6 +39,16 @@
 
     // Baza danych dla bloga
     const DB_NAME = "{DB_NAME}";
+
+    /*
+     *      KONFIGURACJA NARZĘDZIA SERWEROWEGO
+     */
+
+    // Port, który ma używać PHP dla serwera publicznego
+    const PUB_PORT = "{PUB_PORT}";
+
+    // Port, który ma używać PHP dla serwera deweloperskiego
+    const DEV_PORT = "{DEV_PORT}";
 
     /*
      *      KONFIGURACJA KONTA ADMINISTRATORA

@@ -10,22 +10,19 @@
     const BLOG_TITLE = "Kwiatowy Blog";
 
     // Opis bloga
-    const BLOG_DESC = "sdf";
+    const BLOG_DESC = "ef";
 
     // Autor bloga/Nazwa wyświetlana dla głównego administratora bloga
     const BLOG_AUTHOR = "Krzysiek Smaga";
 
     // Tagi bloga
-    const BLOG_TAGS = "nowy, pierwszy, super";
+    const BLOG_TAGS = "kwiaty, rośliny";
 
     // Domena bloga
     const BLOG_DOMAIN = "http://localhost";
 
     // Ikona bloga (format .PNG)
-    const BLOG_ICON = "{BLOG_ICON}";
-
-    // Nazwa pliku strony głównej
-    const BLOG_INDEX = "{BLOG_INDEX}";
+    const BLOG_ICON = "";
 
     /*
      *      KONFIGURACJA BAZY DANYCH
@@ -44,6 +41,16 @@
     const DB_NAME = "blog";
 
     /*
+     *      KONFIGURACJA NARZĘDZIA SERWEROWEGO
+     */
+
+    // Port, który ma używać PHP dla serwera publicznego
+    const PUB_PORT = "8085";
+
+    // Port, który ma używać PHP dla serwera deweloperskiego
+    const DEV_PORT = "8086";
+
+    /*
      *      KONFIGURACJA KONTA ADMINISTRATORA
      */
 
@@ -51,7 +58,7 @@
     const ADMIN_USER = "admin";
 
     // Adres mailowy kontaktowy do głównego administratora bloga
-    const ADMIN_EMAIL = "admin@blog.pl";
+    const ADMIN_EMAIL = "krzysiek-smaga@outlook.com";
 
     // Hasło dla głównego administratora bloga
     const ADMIN_PASS = "root";

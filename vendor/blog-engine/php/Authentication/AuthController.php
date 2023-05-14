@@ -1,6 +1,11 @@
 <?php
 namespace BlogEngine\Authentication {
-    require "vendor/blog-engine/php/Database/DatabaseController.php";
+    $file = "vendor/blog-engine/php/Database/DatabaseController.php";
+    if(file_exists($file))
+        require $file;
+    else
+        require "../$file";
+
     use BlogEngine\Database\DatabaseController;
 
     class AuthController extends DatabaseController{
