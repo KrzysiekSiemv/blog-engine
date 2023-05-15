@@ -13,7 +13,10 @@
     }
     if(isset($_SESSION['uToken_BE'])){
         if($auth->CheckRole($_SESSION['uToken_BE']) == "administrator" || $auth->CheckRole($_SESSION['uToken_BE']) == "moderator")
-            header("location: be_panel.php");
+            if(isset($_GET['goto']))
+                header("location: {$_GET['goto']}");
+            else
+                header("location: be_panel.php");
         else
             header("location: index.php");
     }

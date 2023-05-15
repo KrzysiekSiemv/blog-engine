@@ -3,12 +3,15 @@ namespace BlogEngine\Authentication {
     $file = "vendor/blog-engine/php/Database/DatabaseController.php";
     if(file_exists($file))
         require $file;
-    else
+    else if(file_exists("../$file"))
         require "../$file";
+    else if(file_exists("../../Database/DatabaseController.php"))
+        require "../../Database/DatabaseController.php";
 
     use BlogEngine\Database\DatabaseController;
 
     class AuthController extends DatabaseController{
+
         public function Authenticate($login, $password, $remember) : bool|string {
             $status = false;
             $srv = $this->Connection();
@@ -49,10 +52,37 @@ namespace BlogEngine\Authentication {
             $this->Close($srv);
         }
 
+        public function GetID($login_token) : int|string {
+            $srv = $this->Connection();
+
+            $check_id = "SELECT id_user FROM users WHERE login_token = '$login_token';";
+            $res = mysqli_query($srv, $check_id);
+            if(mysqli_num_rows($res) > 0){
+                if($row = mysqli_fetch_row($res)){
+                    return intval($row[0]);
+                } else
+                    return mysqli_error($res);
+            } else
+                return "Nie ma użytkownika o takim tokenie";
+
+            $this->Close($srv);
+        }
+
         public function NewUser($login, $password, $email, $role = 'user', $display_name = 'Użytkownik', $fname = '', $lname = '') : bool|string{
             $status = false;
             $srv = $this->Connection();
 
+        }
+
+        public function Valid($tekst) : string {
+            $srv = $this->Connection();
+            $tekst = htmlspecialchars($tekst);
+            return mysqli_real_escape_string($srv, $tekst);
+            $this->Close($srv);
+        }
+
+        public function ToHTML($tekst) : string {
+            return htmlspecialchars_decode($tekst);
         }
     }
 }

@@ -9,7 +9,7 @@
     if(!isset($_COOKIE['uToken_BE']))
         header("location: be_login.php");
 
-    $site = ($_POST['site'] ?? "home");
+    $site = ($_GET['s'] ?? "home");
 
     $elements = array();
     $dashboard_tabs_dir = "vendor/blog-engine/php/Dashboard/Tabs";
@@ -40,12 +40,12 @@
     <body>
         <div class="container">
             <h1 class="mt-3">Zarządzanie <?php echo BLOG_TITLE ?></h1>
-            <form method="POST" action="be_panel.php">
+            <form method="GET" action="be_panel.php">
                 <ul class="nav nav-tabs mb-5">
                     <?php
                         foreach ($elements as $element){
                             $active = ($site == $element['Plik']?" active":"");
-                            echo "<li class='nav-item'><button class='nav-link$active' name='site' value='{$element['Plik']}'>{$element['Nazwa']}</button></li>";
+                            echo "<li class='nav-item'><button class='nav-link$active' name='s' value='{$element['Plik']}'>{$element['Nazwa']}</button></li>";
                         }
                     ?>
                 </ul>

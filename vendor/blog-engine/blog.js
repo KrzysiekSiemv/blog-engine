@@ -1,6 +1,5 @@
 (async() => {
     const bootstrap = await import("../twbs/bootstrap/dist/js/bootstrap.min.js");
-    
 });
 
 if(document.getElementById("testConn"))
@@ -21,20 +20,39 @@ function testConnection(){
     xmlhttp.send();
 }
 
-function insertAtCursor(field, text, mark) {
-    let sel = window.getSelection().getRangeAt(0);
-    if(sel != null){
-        let startPos = sel.startOffset;
-        let endPos = sel.endOffset;
+function createTag(show_name, slug, tags){
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "/vendor/blog-engine/php/Posts/Tags/AddTags.php", true);
+    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function (){
+        if(this.readyState === 4 && this.status === 200){
+            console.log(this.responseText);
+            let data = JSON.parse(this.responseText);
 
-        if(mark === true){
-            let start_tag = text.substring(0, (text.length % 2 === 0 ? Math.ceil(text.length / 2) : Math.ceil(text.length / 2) - 1));
-            let end_tag = text.substring((text.length % 2 === 0 ? Math.ceil(text.length / 2) : Math.ceil(text.length / 2) - 1), text.length);
+            let div = document.createElement("div");
+            div.classList.add("form-check");
 
-            field.innerHTML = field.innerHTML.substring(0, startPos) + start_tag + field.innerHTML.substring(startPos, endPos) + end_tag + field.innerHTML.substring(endPos, field.innerHTML.length);
-        } else {
-            field.innerHTML = field.innerHTML.substring(0, startPos) + text + field.innerHTML.substring(startPos, endPos) + "<br>" + field.innerHTML.substring(endPos, field.innerHTML.length);
+            let checkbox = document.createElement('input');
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("name", "tags[]");
+            checkbox.setAttribute("value", data.id);
+            checkbox.setAttribute("id", "tag" + data.id);
+            checkbox.classList.add("form-check-input");
+
+            let label = document.createElement("label");
+            label.setAttribute("for", "tag" + data.id);
+            label.classList.add("form-check-label");
+            label.innerText = data.show_name;
+
+            div.appendChild(checkbox);
+            div.appendChild(label);
+
+            tags.appendChild(div);
         }
-    } else
-        field.innerHTML += text;
+    };
+    xmlhttp.send("show_name=" + show_name + "&slug=" + slug);
+}
+
+function saveToDraft(title, content, name, tags, comments_status){
+
 }

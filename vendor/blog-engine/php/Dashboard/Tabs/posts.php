@@ -3,7 +3,7 @@
     $posts = array();
 
     // Pobierz posty
-    $get_posts_query = "SELECT * FROM posts";
+    $get_posts_query = "SELECT id_post, name, title, content, views, added_at, updated_at, CASE WHEN status = 'public' THEN '<b>Publiczny</b>' WHEN status = 'archive' THEN '<i>Schowany</i>' ELSE '<i>Wersja robocza</i>' END AS widocznosc FROM posts";
     $get_posts_res = mysqli_query($conn, $get_posts_query);
 
     while($row = mysqli_fetch_assoc($get_posts_res)){
@@ -11,14 +11,15 @@
             "ID" => $row['id_post'],
             "Nazwa" => $row['name'],
             "Tytuł" => $row['title'],
-            "Treść" => $row['content'],
+            "Treść" => $row['content'], 0, 120,
             "Wyswietlenia" => $row['views'],
-            "Dodano" => $row['added_at']
+            "Dodano" => $row['added_at'],
+            "Widoczność" => $row['widocznosc']
         ]);
     }
 ?>
 
-<button type="button" name="add_post" class="btn btn-success" onclick="location.href='blog_panel/be_post.php';">Dodaj nowy post</button>
+<button type="button" name="add_post" class="btn btn-success mb-3" onclick="location.href='blog_panel/be_post.php';">Dodaj nowy post</button>
 <table class="table table-stripped">
     <thead>
         <tr>
@@ -26,6 +27,7 @@
             <th>Tytuł</th>
             <th>Zawartość</th>
             <th>Wyświetlenia</th>
+            <th>Widoczność</th>
             <th>Dodano</th>
             <th>Akcja</th>
         </tr>
@@ -34,7 +36,7 @@
         <?php
             foreach ($posts as $post){
                 if(strlen($post['Treść']) > 256){
-                    $post['Treść'] = substr($post['Treść'], 0, 253) . "...";
+                    $post['Treść'] = $auth->ToHTML(substr($post['Treść'], 0, 253) . "...");
                 }
                 echo "
                 <tr>
@@ -42,6 +44,7 @@
                     <td>{$post['Tytuł']}</td>
                     <td>{$post['Treść']}</td>
                     <td>{$post['Wyswietlenia']}</td>
+                    <td>{$post['Widoczność']}</td>
                     <td>{$post['Dodano']}</td>
                     <td>
                         <div class='d-flex'>

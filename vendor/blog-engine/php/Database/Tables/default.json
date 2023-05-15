@@ -121,7 +121,7 @@
     {
       "column_name": "status",
       "datatype": "ENUM",
-      "enum_data": ["public", "draft"],
+      "enum_data": ["public", "draft", "archive"],
       "not_null": true,
       "default": {
         "value": "draft",
