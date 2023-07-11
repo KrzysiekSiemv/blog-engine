@@ -3,10 +3,12 @@
     require "vendor/blog-engine/php/Authentication/AuthController.php";
     use BlogEngine\Authentication\AuthController;
 
+    session_start();
+
     $auth = new AuthController();
     $conn = $auth->Connection();
 
-    if(!isset($_COOKIE['uToken_BE']))
+    if(!isset($_SESSION['uToken_BE']))
         header("location: be_login.php");
 
     $site = ($_GET['s'] ?? "home");

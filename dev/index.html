@@ -5,21 +5,20 @@
       <title>Witaj świecie! - Kwiatowy Blog</title>
       
       <link rel='stylesheet' href='vendor/blog-engine/blog.css' />
-      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css' />
-      <link rel='stylesheet' href='dev/css/style.css?v2' />
+      <link rel='stylesheet' href='dev/css/style.css?v3.2' />
       
       <meta name="author" content="Krzysiek Smaga">
-      <meta name="keywords" content="kwiaty, rośliny">
+      <meta name="keywords" content="nowy, pierwszy, super">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-<?php include $topbar; ?>
+    <?php (isset($_SESSION['uToken_BE'])?include $topbar:""); ?>
       <h1>Kwiatowy Blog</h1>
-      <p>ef</p>
+      <p>dsfsadf</p>
         <a href="be_login.php">Zaloguj się do panelu</a>
   </body>
   
   <script src='vendor/blog-engine/blog.js'></script>
-  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js'></script>
-  <script src='dev/js/script.js?v2'></script>
+  <script src='vendor/blog-engine/js/jquery-3.7.0.min.js'></script>
+  <script src='dev/js/script.js?v3.2'></script>
 </html>

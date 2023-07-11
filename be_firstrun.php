@@ -57,11 +57,11 @@
                     <p>Jeżeli chcesz korzystać z korzyści, jakie dają wbudowane narzędzia tego silnika, możesz ustawić pod siebie to, co chcesz. </p>
                     <div class="row">
                         <div class="col">
-                            <label class="form-label" for="PUB_PORT">Nazwa użytkownika:</label>
+                            <label class="form-label" for="PUB_PORT">Port publiczny:</label>
                             <input class="form-control mb-3" type="number" name="PUB_PORT" min="1" max="65535" placeholder="8080" value="8080" required>
                         </div>
                         <div class="col">
-                            <label class="form-label" for="DEV_PORT">Hasło:</label>
+                            <label class="form-label" for="DEV_PORT">Developer Port:</label>
                             <input class="form-control mb-3" type="number" name="DEV_PORT" min="1" max="65535" placeholder="8081" value="8081" required />
                         </div>
                     </div>

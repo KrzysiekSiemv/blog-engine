@@ -3,7 +3,7 @@
         'name' => 'krzysieksiemv/blog',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '905de3bcc7dff60b47d30a2f635649c644437b23',
+        'reference' => 'e7dd0b2fd68fa13c0a39aee2f4a6f43a02202ec1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'krzysieksiemv/blog' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '905de3bcc7dff60b47d30a2f635649c644437b23',
+            'reference' => 'e7dd0b2fd68fa13c0a39aee2f4a6f43a02202ec1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

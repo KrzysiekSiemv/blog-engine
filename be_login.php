@@ -10,7 +10,9 @@
     if(isset($_POST['logmein'])){
         $remember = ($_POST['remember'] ?? false);
         $auth->Authenticate($_POST['login'], $_POST['password'], $remember);
+        unset($_POST['logmein']);
     }
+
     if(isset($_SESSION['uToken_BE'])){
         if($auth->CheckRole($_SESSION['uToken_BE']) == "administrator" || $auth->CheckRole($_SESSION['uToken_BE']) == "moderator")
             if(isset($_GET['goto']))

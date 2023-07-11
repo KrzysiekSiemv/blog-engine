@@ -57,9 +57,17 @@
         }
     }
 
-    if(isset($_POST['add'])){
-        $postcon->CreatePost($_POST['title'], $_POST['content'], $_POST['name'], $_POST['tags'], $_POST['comments_status'], (isset($_POST['now_time'])?true:$_POST['add_time']), "public");
-    }
+    if(isset($_POST['add']))
+        $postcon->CreatePost($_POST['title'], $_POST['content'], $_POST['name'], $_POST['tags'], $_POST['comments_status'], (isset($_POST['now_time']) ? true : $_POST['add_time']), "public");
+
+    if(isset($_POST['draft']))
+        $postcon->DraftPost($_POST['draft'], $_POST['title'], $_POST['content'], $_POST['name'], $_POST['tags'], $_POST['comments_status']);
+
+    if(isset($_POST['delete']))
+        $postcon->DeletePost($_POST['delete']);
+
+    if(isset($_POST['update']))
+        $postcon->UpdatePost($_POST['update'], $_POST['title'], $_POST['content'], $_POST['name'], $_POST['tags'], $_POST['comments_status']);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -77,6 +85,7 @@
     </head>
     <body>
         <div class="container pt-3">
+            <div id="alerts"></div>
             <h2 class="mb-5"><button class="btn btn-primary" onclick="location.href='../be_panel.php?s=posts'">Wróć</button> <?php echo ($post != null?"Modyfikowanie posta: '{$post['Tytuł']}'":"Dodawanie nowego posta") ?></h2>
             <form method="POST" action="be_post.php">
                 <div class="row mb-3">
@@ -87,9 +96,9 @@
                         </div>
                     </div>
                     <div class="col-md-4 d-flex btn btn-group">
-                        <?php echo ($post != null?"<button type='submit' class='btn btn-success' name='update' value='{$post['ID']}'>Zaktualizuj</button>":"<button type='submit' class='btn btn-success' name='add'>Dodaj</button>") ?>
-                        <button type="submit" class="btn btn-primary" name="draft">Zapisz jako wersja robocza</button>
-                        <button type="submit" class="btn btn-danger" name="delete">Usuń</button>
+                        <?php echo ($post != null?"<button type='submit' class='btn btn-success' id='update_it' name='update' value='{$post['ID']}'>Zaktualizuj</button>":"<button type='submit' class='btn btn-success' name='add'>Dodaj</button>") ?>
+                        <button type="submit" class="btn btn-primary" name="draft" value="<?php echo ($post != null?$post['ID']:0) ?>">Zapisz jako wersja robocza</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePost" class="btn btn-danger" <?php if($post == null) echo "disabled" ?>>Usuń</button>
                     </div>
                 </div>
                 <div class="row">
@@ -102,10 +111,11 @@
                             <div class="card-body">
                                 <h4 class="card-title">Ustawienia posta</h4>
                                 <div class='form-check mb-3'><input type='checkbox' id="autosave" class='form-check-input' checked><label for='autosave'>Automatyczne zapisywanie posta do wersji roboczej co 1 minutę</label> </div>
+                                <input type="hidden" name="id_post" id="id_post" value="<?php echo ($post != null?$post['ID']:0);  ?>" />
                                 <h5>Status posta</h5>
                                 <p><?php echo ($post != null?$post['Widocznosc']:"W trakcie tworzenia") ?></p>
                                 <h5>Kto może publikować komentarze</h5>
-                                <select name="comments_status" class="form-select mb-3">
+                                <select name="comments_status" id="comments_status" class="form-select mb-3">
                                     <option value="open" <?php if($post != null && $post['Komentarze'] == 'open') echo "selected" ?>>Każdy</option>
                                     <option value="registered" <?php if($post != null && $post['Komentarze'] == 'registered') echo "selected" ?>>Zalogowani</option>
                                     <option value="closed" <?php if($post != null && $post['Komentarze'] == 'closed') echo "selected" ?>>Nikt</option>
@@ -138,12 +148,11 @@
                                                 <label for='now_time'>Godzina dodania równa godzinie naciśnięcia przycisku</label> 
                                             </div>");
                                 ?>
-
                                 <div class="modal fade" id="newTag" tabindex="-1">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Tworzenie nowego tagu</h1>
+                                                <h1 class="modal-title fs-5">Tworzenie nowego tagu</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -164,6 +173,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                    if($post != null){
+                                        echo '<div class="modal fade" id="deletePost" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5">Czy na pewno chcesz usunąć post?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Po usunięciu nie odzyskasz już tego posta. Pamiętaj, że możesz zawsze zarchiwizować swój post</p>
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn btn-danger" value="' . $post['ID'] . '" name="delete">Zatwierdź usunięcie</button>
+                                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Anuluj</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -174,6 +204,11 @@
     <script>
         let title = document.getElementById('title');
         let insert = document.getElementById('content');
+        let autosave_option = document.getElementById("autosave");
+
+        let autosave = autosave_option.value;
+        let autosave_status = "";
+
         $(document).ready(function(e){
             $('#summernote').summernote({
                 height: 600,
@@ -192,9 +227,56 @@
             createTag(document.getElementById('show_name').value, document.getElementById('slug').value, document.getElementById('tags'));
         }, true);
 
+        if(document.getElementById("update_it") != null) {
+            document.getElementById('update_it').addEventListener('click', function () {
+                insert.value = $('#summernote').summernote('code');
+            }, true);
+        }
+
         title.addEventListener('keyup', function (e){
             if(title.value.length < 60)
                 document.getElementById('name').value = title.value.toLowerCase().replace(" ", "_");
         }, true);
+
+        autosave_option.addEventListener('change', () => {
+            autosave = autosave_option.value;
+        }, true);
+
+        setInterval(function(){
+            if(autosave){
+                let tags = document.getElementsByName("tags[]");
+                let selected_tags = "";
+                for(let i = 0; i < tags.length; i++){
+                    if(tags[i].checked)
+                        selected_tags += "&tags[]=" + tags[i].value;
+                }
+
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "../vendor/blog-engine/php/Posts/Calls/AutosaveCall.php");
+                xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhttp.onreadystatechange = function(e){
+                    if(this.readyState === 4 && this.status === 200){
+                        let wrapper = document.createElement("div");
+                        wrapper.innerHTML = "<div class='alert alert-primary' role='alert' id='alert'><div>" + this.responseText + "</div><button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+                        document.getElementById('alerts').append(wrapper);
+                        alert();
+                    }
+                }
+                xhttp.send(
+                    "id=" + document.getElementById("id_post").value +
+                    "&name=" + document.getElementById("name").value +
+                    "&title=" + document.getElementById('title').value +
+                    "&content=" + document.getElementById('content').value +
+                    "&commentStatus=" + document.getElementById("comments_status").value +
+                    selected_tags
+                );
+            }
+        }, 60000);
+
+        function alert(){
+            setTimeout(function (){
+                document.getElementById('alerts').removeChild(document.getElementById('alerts').firstChild);
+            }, 10000);
+        }
     </script>
 </html>

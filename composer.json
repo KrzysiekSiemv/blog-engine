@@ -17,6 +17,8 @@
     "require": {
         "twbs/bootstrap": "^5.2",
         "phpmailer/phpmailer": "^6.7.1",
-      "ext-mysqli": "*"
+      "ext-mysqli": "*",
+      "ext-readline": "*",
+        "ext-mbstring": "*"
     }
 }
