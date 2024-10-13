@@ -18,10 +18,15 @@ namespace BlogEngine\Database {
 
         public function Close($conn) { mysqli_close($conn); }
 
-        function Insert($into, $values){
+        function Insert($into, $values) : bool{
             $conn = $this->Connection();
-            mysqli_query($conn, "INSERT INTO {$into} VALUES({$values})");
-            $this->Close($conn);
+            if(mysqli_query($conn, "INSERT INTO {$into} VALUES({$values})")){
+                $this->Close($conn);
+                return true;
+            } else {
+                $this->Close($conn);
+                return false;
+            }
         }
 
         function CreateTable($name, $columns){
@@ -193,6 +198,11 @@ namespace BlogEngine\Database {
             } else {
                 error_log("Nie ma dostępnego folderu \"Tables\". Zatrzymywanie tworzenia bazy!");
             }
+        }
+
+        function Log($content, $log_level = 'Information', $id_user = null){
+            $ip_address = file_get_contents("https://api.ipify.org");
+            $this->Insert("logs(ip_address, content, log_level, created_by)", "'$ip_address', '$content', '$log_level', $id_user");
         }
     }
 }

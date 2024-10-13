@@ -99,18 +99,18 @@
                 if(pathinfo($file, PATHINFO_EXTENSION) == "html") {
                     $name = basename($file);
                     $site = file_get_contents($file);
-                    foreach (array_keys($this->dictionary->page_tags) as $page_tag) {
+                    foreach (array_keys($this->dictionary->PageTags()) as $page_tag) {
                         if ($page_tag == "{CSS}") {
                             for ($j = 2; $j < count($this->csss); $j++)
-                                $this->dictionary->page_tags[$page_tag] .= "\n      <link rel='stylesheet' href='$folder/css/{$this->csss[$j]}?v{$this->version}' />";
+                                $this->dictionary->PageTags()[$page_tag] .= "\n      <link rel='stylesheet' href='$folder/css/{$this->csss[$j]}?v{$this->version}' />";
                         }
 
                         if ($page_tag == "{JS}") {
                             for ($j = 2; $j < count($this->jss); $j++)
-                                $this->dictionary->page_tags[$page_tag] .= "\n  <script src='$folder/js/{$this->jss[$j]}?v{$this->version}'></script>";
+                                $this->dictionary->PageTags()[$page_tag] .= "\n  <script src='$folder/js/{$this->jss[$j]}?v{$this->version}'></script>";
                         }
 
-                        $site = str_replace($page_tag, $this->dictionary->page_tags[$page_tag], $site);
+                        $site = str_replace($page_tag, $this->dictionary->PageTags()[$page_tag], $site);
                     }
 
                     $site = str_replace("<body>", "<body>\n<?php echo \$topbar; ?>", $site);
@@ -174,21 +174,21 @@
             switch($type){
                 case "dev":
                     foreach ($json["dev"]["css"] as $css){
-                        $this->dictionary->page_tags["{CSS}"] .= "\n      <link rel='stylesheet' href='$css' />";
+                        $this->dictionary->PageTags()["{CSS}"] .= "\n      <link rel='stylesheet' href='$css' />";
                         echo "* Dodano '$css' do styli w '$type'!\n";
                     }
                     foreach ($json["dev"]["js"] as $js){
-                        $this->dictionary->page_tags["{JS}"] .= "\n  <script src='$js'></script>";
+                        $this->dictionary->PageTags()["{JS}"] .= "\n  <script src='$js'></script>";
                         echo "* Dodano '$js' do skryptów w '$type'!\n";
                     }
                     break;
                 case "pub":
                     foreach ($json["pub"]["css"] as $css){
-                        $this->dictionary->page_tags["{CSS}"] .= "\n      <link rel='stylesheet' href='$css' />";
+                        $this->dictionary->PageTags()["{CSS}"] .= "\n      <link rel='stylesheet' href='$css' />";
                         echo "* Dodano '$css' do styli w '$type'!\n";
                     }
                     foreach ($json["pub"]["js"] as $js){
-                        $this->dictionary->page_tags["{JS}"] .= "\n  <script src='$js'></script>";
+                        $this->dictionary->PageTags()["{JS}"] .= "\n  <script src='$js'></script>";
                         echo "* Dodano '$js' do skryptów w '$type'!\n";
                     }
                     break;

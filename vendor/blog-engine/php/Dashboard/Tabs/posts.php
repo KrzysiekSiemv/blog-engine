@@ -51,7 +51,7 @@
                             <form method='POST' action='blog_panel/be_post.php'>
                                 <button class='btn btn-primary ms-2' type='submit' name='edit' value='{$post['ID']}'>Edytuj</button>
                             </form>
-                            <form method='POST' action='be_panel.php'>
+                            <form method='POST' action='vendor/blog-engine/php/Posts/Calls/PostManagement.php'>
                                 <div class='d-flex'>
                                     <button class='btn btn-primary ms-2' type='submit' name='see' value='{$post['ID']}'>Zobacz</button>
                                     <button class='btn btn-danger ms-2' type='submit' name='delete' value='{$post['ID']}'>Usuń</button>

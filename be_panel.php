@@ -11,7 +11,7 @@
     if(!isset($_SESSION['uToken_BE']))
         header("location: be_login.php");
 
-    $site = ($_GET['s'] ?? "home");
+    $site = ($_GET['s'] ?? "_home");
 
     $elements = array();
     $dashboard_tabs_dir = "vendor/blog-engine/php/Dashboard/Tabs";

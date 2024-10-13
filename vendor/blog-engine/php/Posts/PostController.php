@@ -29,7 +29,7 @@ namespace BlogEngine\Posts {
             header("location: ../../../be_panel.php?s=posts");
         }
 
-        public function DraftPost($id = 0, $title = '', $content = '', $name = '', $tags = [], $commentStatus = ''){
+        public function DraftPost($id = 0, $title = '', $content = '', $name = '', $tags = [], $commentStatus = '', $add_time = true){
             $srv = $this->auth->Connection();
 
             $date = (is_bool($add_time)?"NOW":Date("'Y-m-d H:i:s'", strtotime($add_time)));
@@ -38,7 +38,7 @@ namespace BlogEngine\Posts {
             if($id == 0){
                 $id = mysqli_fetch_row(mysqli_query($srv, "SELECT MAX(id_post) FROM posts;"))[0] + 1;
 
-                $insert_post = "INSERT INTO posts VALUES($last_id_post, $id_user, '$name', '$title', '$content', 'draft', '$commentStatus', 0, $date, null);";
+                $insert_post = "INSERT INTO posts VALUES($id, $id_user, '$name', '$title', '$content', 'draft', '$commentStatus', 0, NOW(), null);";
                 mysqli_query($srv, $insert_post);
 
                 foreach ($tags as $tag){
@@ -104,7 +104,7 @@ namespace BlogEngine\Posts {
             return $response;
         }
 
-        public function DownloadPost($year, $month, $date, $name) : array {
+        public function DownloadPost($year, $month, $day, $name) : array {
             $srv = $this->auth->Connection();
             $post = array();
 
@@ -133,7 +133,54 @@ namespace BlogEngine\Posts {
                 }
             }
 
-            return post;
+            return $post;
+        }
+ 
+        public function DownloadSinglePost($id) {
+            $srv = $this->auth->Connection();
+            $post = [];
+
+            $get_post = "SELECT users.display_name AS autor, posts.title AS tytul, posts.content AS tresc, posts.views AS wyswietlenia, posts.added_at AS dodano, (SELECT GROUP_CONCAT(CONCAT(comments.author, ';;', comments.content, ';;', comments.added_at)) FROM comments WHERE comments.id_post = posts.id_post GROUP BY comments.id_comment) AS komentarze FROM posts, users WHERE users.id_user = posts.id_user AND id_post ={$id};";
+            $res_post = mysqli_query($srv, $get_post);
+
+            if($row = mysqli_fetch_row($res_post)){
+                $post = [
+                    "author" => $row[0],
+                    "title" => $row[1],
+                    "content" => $row[2],
+                    "views" => $row[3],
+                    "added_at" => $row[4],
+                    "comments" => array()
+                ];
+
+                if($row[5] != ""){
+                    $comments = mb_split("||||", $row[5]);
+
+                    foreach($comments as $comment){
+                        $data = mb_split(";;", $comment);
+                        array_push($post[0]["Komentarze"], [
+                        "Autor" => $data[0],
+                            "Tresc" => $data[1],
+                            "Dodano" => $data[2]
+                        ]);
+                    }
+                }
+            }
+            
+            $this->auth->Close($srv);
+            return $post;
+        }
+
+        public function ConvertToSite($data, $site) : string{
+            require "vendor/blog-engine/php/Dictionary.php";
+            $dictionary = new \BlogEngine\Dictionary;
+            
+            foreach(array_keys($dictionary->BlogTags()) as $tag){
+                $site = str_replace($tag, $data[$dictionary->BlogTags()[$tag]], $site);
+            }
+
+            return $site;
         }
     }
+
 }

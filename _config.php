@@ -7,16 +7,16 @@
     const BLOG_RAN = true;
 
     // Tytuł bloga
-    const BLOG_TITLE = "nowy blog";
+    const BLOG_TITLE = "Nowy blog";
 
     // Opis bloga
-    const BLOG_DESC = "o niczym";
+    const BLOG_DESC = "Jest to nowy blog";
 
     // Autor bloga/Nazwa wyświetlana dla głównego administratora bloga
-    const BLOG_AUTHOR = "Krzysiek Smaga";
+    const BLOG_AUTHOR = "Krzysztof Smaga";
 
     // Tagi bloga
-    const BLOG_TAGS = "asdf, sadf, wr";
+    const BLOG_TAGS = "nowy, blog, zero";
 
     // Domena bloga
     const BLOG_DOMAIN = "http://localhost";
@@ -38,7 +38,7 @@
     const DB_PASS = "";
 
     // Baza danych dla bloga
-    const DB_NAME = "blog_now";
+    const DB_NAME = "blogengine";
 
     /*
      *      KONFIGURACJA NARZĘDZIA SERWEROWEGO
@@ -81,4 +81,4 @@
     const MAIL_PORT = "";
 
     // Wymaga SSL'a
-    const MAIL_SSL = 0;
+    const MAIL_SSL = 1;

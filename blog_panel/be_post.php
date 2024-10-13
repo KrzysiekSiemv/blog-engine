@@ -61,7 +61,7 @@
         $postcon->CreatePost($_POST['title'], $_POST['content'], $_POST['name'], $_POST['tags'], $_POST['comments_status'], (isset($_POST['now_time']) ? true : $_POST['add_time']), "public");
 
     if(isset($_POST['draft']))
-        $postcon->DraftPost($_POST['draft'], $_POST['title'], $_POST['content'], $_POST['name'], $_POST['tags'], $_POST['comments_status']);
+        $postcon->DraftPost($_POST['draft'], $_POST['title'], $_POST['content'], $_POST['name'], $_POST['tags'], $_POST['comments_status'], (isset($_POST['now_time']) ? true : $_POST['add_time']));
 
     if(isset($_POST['delete']))
         $postcon->DeletePost($_POST['delete']);

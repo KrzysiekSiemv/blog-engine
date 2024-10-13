@@ -419,5 +419,61 @@
         "is_string": false
       }
     }
+  ],
+  "logs": [
+    {
+      "column_name": "id_log",
+      "datatype": "INT",
+      "primary_key": true,
+      "auto_increment": true,
+      "not_null": true
+    },
+    {
+      "column_name": "ip_address",
+      "datatype": "VARCHAR",
+      "length": 15,
+      "not_null": true,
+      "default": {
+        "value": "127.0.0.1",
+        "is_string": true
+      }
+    },
+    {
+      "column_name": "content",
+      "datatype": "TEXT",
+      "not_null": true,
+      "default": {
+        "value": "Some unknown error",
+        "is_string": true
+      }
+    },
+    {
+      "column_name": "log_level",
+      "datatype": "ENUM",
+      "enum_data": ["Debug", "Information", "Warning", "Error", "Critical"],
+      "not_null": true,
+      "default": {
+        "value": "Warning",
+        "is_string": true
+      }
+    },
+    {
+      "column_name": "created_at",
+      "datatype": "DATETIME",
+      "not_null": true,
+      "default": {
+        "value": "NOW()",
+        "is_string": false
+      }
+    },
+    {
+      "column_name": "created_by",
+      "datatype": "INT",
+      "not_null": false,
+      "foreign_key": {
+        "references": "users",
+        "column": "id_user"
+      }
+    }
   ]
 }

@@ -2,23 +2,18 @@
 <html lang="pl">
   <head>
       <meta charset="UTF-8">
-      <title>Witaj świecie! - Kwiatowy Blog</title>
+      <title>Witaj świecie! - Nowy blog</title>
       
-      <link rel='stylesheet' href='vendor/blog-engine/blog.css' />
-      <link rel='stylesheet' href='dev/css/style.css?v3.2' />
       
-      <meta name="author" content="Krzysiek Smaga">
-      <meta name="keywords" content="nowy, pierwszy, super">
+      <meta name="author" content="Krzysztof Smaga">
+      <meta name="keywords" content="nowy, blog, zero">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <?php (isset($_SESSION['uToken_BE'])?include $topbar:""); ?>
-      <h1>Kwiatowy Blog</h1>
-      <p>dsfsadf</p>
+<?php echo $topbar; ?>
+      <h1>Nowy blog</h1>
+      <p>Jest to nowy blog</p>
         <a href="be_login.php">Zaloguj się do panelu</a>
   </body>
   
-  <script src='vendor/blog-engine/blog.js'></script>
-  <script src='vendor/blog-engine/js/jquery-3.7.0.min.js'></script>
-  <script src='dev/js/script.js?v3.2'></script>
 </html>
